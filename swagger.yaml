@@ -28,7 +28,7 @@ paths:
       parameters:
       - name: "smileyId"
         in: "path"
-        description: "ID of smiley to display"
+        description: "ID of smiley to display or string representation of smiley like :some_smiley:"
         required: true
         type: "integer"
         format: "int64"
