@@ -31,7 +31,6 @@ paths:
         description: "ID of smiley to display or string representation of smiley like :some_smiley:"
         required: true
         type: "string"
-        format: "int64"
       responses:
         200:
           description: "successful operation"
