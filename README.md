@@ -21,7 +21,7 @@ The flow is composed of :
 - A REST trigger
 - A log activity to print the input request
 - A command activity to hide the previous smiley image displayed
-- A commond activity to display the new smiley image
+- A command activity to display the new smiley image
 - A return activity to response to the client
 
 The program [fbi](https://linux.die.net/man/1/fbi) is used by the application to display the images.
