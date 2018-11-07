@@ -29,7 +29,7 @@
                 {
                   "mapTo": "smileyFile",
                   "type": "expression",
-                  "value": "string.concat(\"/home/ubuntu01/demo/smileys-store/\",string.concat($.pathParams.smileyId, \".png\"))"
+                  "value": "string.concat($env.DEMO_IOT_EMOJIS_DIR, string.concat(\"/\", string.concat($.pathParams.smileyId, \".png\")))"
                 }
               ],
               "output": [
@@ -117,6 +117,28 @@
             }
           },
           {
+            "id": "copyfile_1",
+            "name": "Copy image file",
+            "description": "Copy image file",
+            "activity": {
+              "ref": "github.com/square-it/flogo-contrib-activities/copyfile",
+              "mappings": {
+                "input": [
+                  {
+                    "type": "expression",
+                    "value": "$flow.smileyFile",
+                    "mapTo": "source"
+                  },
+                  {
+                    "type": "expression",
+                    "value": "/tmp/current.png",
+                    "mapTo": "destination"
+                  }
+                ]
+              }
+            }
+          },
+          {
             "id": "command_4",
             "name": "fbi",
             "description": "Execute a command",
@@ -126,15 +148,19 @@
                 "useCurrentEnvironment": true,
                 "timeout": 0,
                 "wait": true,
-                "command": "sh"
+                "command": "fbi"
               },
               "mappings": {
                 "input": [
                   {
                     "type": "object",
                     "value": [
-                      "-c",
-                      "fbi -noverbose /home/ubuntu01/demo/smileys-store/1F60B.png"
+                      "-T",
+                      "2",
+                      "-a",
+                      "-noverbose",
+                      "-nocomments",
+                      "/tmp/current.png"
                     ],
                     "mapTo": "arguments"
                   }
@@ -188,6 +214,10 @@
           },
           {
             "from": "log_3",
+            "to": "copyfile_1"
+          },
+          {
+            "from": "copyfile_1",
             "to": "command_4"
           },
           {

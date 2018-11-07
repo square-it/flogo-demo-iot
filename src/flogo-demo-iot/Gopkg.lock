@@ -2,12 +2,15 @@
 
 
 [[projects]]
+  digest = "1:a204f9aa04d3305be0d4d8f69f42aee6c649a8f9f9a8dbbbaff54bdad5ce50c7"
   name = "github.com/Sirupsen/logrus"
   packages = ["."]
+  pruneopts = "T"
   revision = "bcd833dfe83d3cebad139e4a29ed79cb2318bf95"
   version = "v1.2.0"
 
 [[projects]]
+  digest = "1:beaa359a6a21ff38d89e6d1ac648a61997de9a5a5a152b3f22b0c071818a2e2c"
   name = "github.com/TIBCOSoftware/flogo-contrib"
   packages = [
     "action/flow",
@@ -25,12 +28,14 @@
     "model/simple",
     "model/simple/behaviors",
     "trigger/rest",
-    "trigger/rest/cors"
+    "trigger/rest/cors",
   ]
+  pruneopts = "T"
   revision = "94000a231bc4dfc848492bba25d9ef92171cd445"
   version = "v0.5.6"
 
 [[projects]]
+  digest = "1:c795750ff4c50bfea6bf43f819d03d50920e0b618bf55e58033f77ff84061418"
   name = "github.com/TIBCOSoftware/flogo-lib"
   packages = [
     "app",
@@ -66,47 +71,71 @@
     "engine/runner",
     "logger",
     "util",
-    "util/managed"
+    "util/managed",
   ]
+  pruneopts = "T"
   revision = "c80a5611b40f778c8b88a71f76609e843a2bfc1a"
   version = "v0.5.6"
 
 [[projects]]
   branch = "master"
+  digest = "1:382c217b79183394daf575d58bb5cb4a4626a92a278e1ed65c78a4a45e0f4bf6"
   name = "github.com/julienschmidt/httprouter"
   packages = ["."]
+  pruneopts = "T"
   revision = "26a05976f9bf5c3aa992cc20e8588c359418ee58"
 
 [[projects]]
+  digest = "1:0a69a1c0db3591fcefb47f115b224592c8dfa4368b7ba9fae509d5e16cdc95c8"
   name = "github.com/konsorten/go-windows-terminal-sequences"
   packages = ["."]
+  pruneopts = "T"
   revision = "5c8c8bd35d3832f5d134ae1e1e375b69a4d25242"
   version = "v1.0.1"
 
 [[projects]]
   branch = "master"
+  digest = "1:562836ce1c3ed59623adb32d65625495c7d26e7e3b58a0afcc3d891fa66b5802"
   name = "github.com/square-it/flogo-contrib-activities"
-  packages = ["command"]
-  revision = "d7433ee6e9fd0c44de88fa75f60b15107635ffa7"
+  packages = [
+    "command",
+    "copyfile",
+  ]
+  pruneopts = "T"
+  revision = "9325415925d3b346d5f370c21e71b582a4ace358"
 
 [[projects]]
   branch = "master"
+  digest = "1:482ae811efe307bd9d00f66de80385fba51325054f8ff573e894185e72441f08"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
+  pruneopts = "T"
   revision = "4d3f4d9ffa16a13f451c3b2999e9c49e9750bf06"
 
 [[projects]]
   branch = "master"
+  digest = "1:4d04f771b6ad26fb216d1553a474ffb63d837cfb438f6c72eb7b6a50a7f2a4d0"
   name = "golang.org/x/sys"
   packages = [
     "unix",
-    "windows"
+    "windows",
   ]
+  pruneopts = "T"
   revision = "3a76605856fddce5718553cbb8bd50ca492a7274"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ee9e5fd8f873d9724f1559f85e8ca7ab326f70608292822c996c4ff53673e708"
+  input-imports = [
+    "github.com/TIBCOSoftware/flogo-contrib/action/flow",
+    "github.com/TIBCOSoftware/flogo-contrib/activity/actreply",
+    "github.com/TIBCOSoftware/flogo-contrib/activity/log",
+    "github.com/TIBCOSoftware/flogo-contrib/trigger/rest",
+    "github.com/TIBCOSoftware/flogo-lib/app",
+    "github.com/TIBCOSoftware/flogo-lib/engine",
+    "github.com/TIBCOSoftware/flogo-lib/logger",
+    "github.com/square-it/flogo-contrib-activities/command",
+    "github.com/square-it/flogo-contrib-activities/copyfile",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
