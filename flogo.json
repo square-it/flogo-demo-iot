@@ -1,0 +1,235 @@
+{
+  "name": "flogo-demo-iot",
+  "type": "flogo:app",
+  "version": "0.0.1",
+  "appModel": "1.0.0",
+  "triggers": [
+    {
+      "id": "smiley",
+      "ref": "github.com/TIBCOSoftware/flogo-contrib/trigger/rest",
+      "name": "smiley",
+      "description": "Triggers the display of the selected smiley on the Raspberry screen.",
+      "settings": {
+        "port": 4445
+      },
+      "handlers": [
+        {
+          "action": {
+            "ref": "github.com/TIBCOSoftware/flogo-contrib/action/flow",
+            "data": {
+              "flowURI": "res://flow:flogo_smiley_demo"
+            },
+            "mappings": {
+              "input": [
+                {
+                  "mapTo": "smileyId",
+                  "type": "assign",
+                  "value": "$.pathParams.smileyId"
+                },
+                {
+                  "mapTo": "smileyFile",
+                  "type": "expression",
+                  "value": "string.concat($env.DEMO_IOT_EMOJIS_DIR, string.concat(\"/\", string.concat($.pathParams.smileyId, \".png\")))"
+                }
+              ],
+              "output": [
+                {
+                  "mapTo": "code",
+                  "type": "assign",
+                  "value": "$.returnCode"
+                }
+              ]
+            }
+          },
+          "settings": {
+            "method": "GET",
+            "path": "/v1/smiley/:smileyId"
+          }
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "flow:flogo_smiley_demo",
+      "data": {
+        "name": "Flogo Smiley Demo",
+        "description": "This is a simple API to display smiley pictures on a screen of a Raspberry PI running a Flogo IoT application",
+        "metadata": {
+          "input": [
+            {
+              "name": "smileyId",
+              "type": "string"
+            },
+            {
+              "name": "smileyFile",
+              "type": "string"
+            }
+          ],
+          "output": [
+            {
+              "name": "returnCode",
+              "type": "integer"
+            }
+          ]
+        },
+        "tasks": [
+          {
+            "id": "log_2",
+            "name": "Log Message",
+            "description": "Simple Log Activity",
+            "activity": {
+              "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/log",
+              "input": {
+                "flowInfo": "false",
+                "addToFlow": "false"
+              },
+              "mappings": {
+                "input": [
+                  {
+                    "type": "expression",
+                    "value": "string.concat(\"Receive request with smiley id : \", $flow.smileyId)",
+                    "mapTo": "message"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "log_3",
+            "name": "Log Message (2)",
+            "description": "Simple Log Activity",
+            "activity": {
+              "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/log",
+              "input": {
+                "flowInfo": "false",
+                "addToFlow": "false"
+              },
+              "mappings": {
+                "input": [
+                  {
+                    "type": "expression",
+                    "value": "string.concat(\"File to display : \", $flow.smileyFile)",
+                    "mapTo": "message"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "copyfile_1",
+            "name": "Copy image file",
+            "description": "Copy image file",
+            "activity": {
+              "ref": "github.com/square-it/flogo-contrib-activities/copyfile",
+              "mappings": {
+                "input": [
+                  {
+                    "type": "expression",
+                    "value": "$flow.smileyFile",
+                    "mapTo": "source"
+                  },
+                  {
+                    "type": "expression",
+                    "value": "/tmp/current.png",
+                    "mapTo": "destination"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "command_4",
+            "name": "fbi",
+            "description": "Execute a command",
+            "activity": {
+              "ref": "github.com/square-it/flogo-contrib-activities/command",
+              "input": {
+                "useCurrentEnvironment": true,
+                "timeout": 0,
+                "wait": true,
+                "command": "fbi"
+              },
+              "mappings": {
+                "input": [
+                  {
+                    "type": "object",
+                    "value": [
+                      "-T",
+                      "2",
+                      "-a",
+                      "-noverbose",
+                      "-nocomments",
+                      "/tmp/current.png"
+                    ],
+                    "mapTo": "arguments"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "log_5",
+            "name": "Log Message (3)",
+            "description": "Simple Log Activity",
+            "activity": {
+              "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/log",
+              "input": {
+                "flowInfo": "false",
+                "addToFlow": "false"
+              },
+              "mappings": {
+                "input": [
+                  {
+                    "type": "assign",
+                    "value": "$activity[command_4].output",
+                    "mapTo": "message"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "actreply_6",
+            "name": "Reply To Trigger",
+            "description": "Simple Reply Activity",
+            "activity": {
+              "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/actreply",
+              "input": {
+                "mappings": [
+                  {
+                    "mapTo": "returnCode",
+                    "type": "literal",
+                    "value": 200
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "links": [
+          {
+            "from": "log_2",
+            "to": "log_3"
+          },
+          {
+            "from": "log_3",
+            "to": "copyfile_1"
+          },
+          {
+            "from": "copyfile_1",
+            "to": "command_4"
+          },
+          {
+            "from": "command_4",
+            "to": "log_5"
+          },
+          {
+            "from": "log_5",
+            "to": "actreply_6"
+          }
+        ]
+      }
+    }
+  ]
+}
