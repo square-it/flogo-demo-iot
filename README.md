@@ -1,6 +1,6 @@
 # Flogo demo by Square IT Services - IoT application
 
-![Flogo Demo display](./rpi_smiley.jpg)
+![Flogo Demo display](doc/rpi_smiley.jpg)
 
 ## Introduction
 
@@ -20,7 +20,7 @@ The application is running on a Raspberry Pi.
 Its goal is to display a smiley image on the display of the Raspberry Pi.
 
 The smiley image is chosen using a **REST API over HTTP**.
-This API is described by the file [swagger.yaml](swagger.yaml)
+This API is described by the file [swagger.yaml](spec/swagger.yaml)
 
 ## Implementation
 
