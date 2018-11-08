@@ -8,7 +8,7 @@
       "id": "smiley",
       "ref": "github.com/TIBCOSoftware/flogo-contrib/trigger/rest",
       "name": "smiley",
-      "description": "Triggers the display of the selected smiley on the Raspberry screen.",
+      "description": "Triggers the display of the selected smiley on the Raspberry Pi screen.",
       "settings": {
         "port": 4445
       },
@@ -76,8 +76,8 @@
         "tasks": [
           {
             "id": "log_2",
-            "name": "Log Message",
-            "description": "Simple Log Activity",
+            "name": "Log Smiley ID",
+            "description": "Log the received smiley ID",
             "activity": {
               "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/log",
               "input": {
@@ -88,7 +88,7 @@
                 "input": [
                   {
                     "type": "expression",
-                    "value": "string.concat(\"Receive request with smiley id : \", $flow.smileyId)",
+                    "value": "string.concat(\"Receive request with smiley id: \", $flow.smileyId)",
                     "mapTo": "message"
                   }
                 ]
@@ -97,8 +97,8 @@
           },
           {
             "id": "log_3",
-            "name": "Log Message (2)",
-            "description": "Simple Log Activity",
+            "name": "Log Smiley Filename",
+            "description": "Log the resolved filename of the smiley to display",
             "activity": {
               "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/log",
               "input": {
@@ -109,7 +109,7 @@
                 "input": [
                   {
                     "type": "expression",
-                    "value": "string.concat(\"File to display : \", $flow.smileyFile)",
+                    "value": "string.concat(\"File to display: \", $flow.smileyFile)",
                     "mapTo": "message"
                   }
                 ]
@@ -117,38 +117,36 @@
             }
           },
           {
-            "id": "copyfile_1",
-            "name": "Copy image file",
-            "description": "Copy image file",
+            "id": "copyfile_4",
+            "name": "Copy Image File",
+            "description": "Copy selected smiley image file to a temporary location",
             "activity": {
               "ref": "github.com/square-it/flogo-contrib-activities/copyfile",
+              "input": {
+                "destination": "/tmp/current.png"
+              },
               "mappings": {
                 "input": [
                   {
-                    "type": "expression",
+                    "type": "assign",
                     "value": "$flow.smileyFile",
                     "mapTo": "source"
-                  },
-                  {
-                    "type": "expression",
-                    "value": "/tmp/current.png",
-                    "mapTo": "destination"
                   }
                 ]
               }
             }
           },
           {
-            "id": "command_4",
-            "name": "fbi",
-            "description": "Execute a command",
+            "id": "command_5",
+            "name": "Call fbi Command",
+            "description": "Execute the fbi command to display the smiley image on the Raspberry Pi screen",
             "activity": {
               "ref": "github.com/square-it/flogo-contrib-activities/command",
               "input": {
+                "command": "fbi",
                 "useCurrentEnvironment": true,
                 "timeout": 0,
-                "wait": true,
-                "command": "fbi"
+                "wait": true
               },
               "mappings": {
                 "input": [
@@ -169,9 +167,9 @@
             }
           },
           {
-            "id": "log_5",
-            "name": "Log Message (3)",
-            "description": "Simple Log Activity",
+            "id": "log_6",
+            "name": "Log fbi Output",
+            "description": "Log the output of the fbi command",
             "activity": {
               "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/log",
               "input": {
@@ -182,7 +180,7 @@
                 "input": [
                   {
                     "type": "assign",
-                    "value": "$activity[command_4].output",
+                    "value": "$activity[command_5].output",
                     "mapTo": "message"
                   }
                 ]
@@ -190,9 +188,9 @@
             }
           },
           {
-            "id": "actreply_6",
+            "id": "actreply_7",
             "name": "Reply To Trigger",
-            "description": "Simple Reply Activity",
+            "description": "Send HTTP 200 status code",
             "activity": {
               "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/actreply",
               "input": {
@@ -214,19 +212,19 @@
           },
           {
             "from": "log_3",
-            "to": "copyfile_1"
+            "to": "copyfile_4"
           },
           {
-            "from": "copyfile_1",
-            "to": "command_4"
+            "from": "copyfile_4",
+            "to": "command_5"
           },
           {
-            "from": "command_4",
-            "to": "log_5"
+            "from": "command_5",
+            "to": "log_6"
           },
           {
-            "from": "log_5",
-            "to": "actreply_6"
+            "from": "log_6",
+            "to": "actreply_7"
           }
         ]
       }
