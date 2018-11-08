@@ -1,5 +1,9 @@
 # Flogo demo by Square IT Services - IoT application
 
+![Flogo Demo display](./rpi_smiley.jpg)
+
+## Introduction
+
 This repository is part of the [**Flogo Demo by Square IT Services**](https://github.com/square-it/flogo-demo).
 
 * [This Flogo application](#description) manages the screen display part.
@@ -7,7 +11,8 @@ This repository is part of the [**Flogo Demo by Square IT Services**](https://gi
 
 Currently, these two applications communicates very simply through a REST service.
 
-![Flogo Demo](https://github.com/square-it/flogo-demo/blob/master/Flogo%20Demo.png)
+![Flogo Demo architecture](https://github.com/square-it/flogo-demo/blob/master/Flogo%20Demo.png)
+
 
 ## Description
 
