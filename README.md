@@ -91,6 +91,10 @@ scp bin/linux_arm/flogo-demo-iot rpi:~
 ```
 ssh rpi 'sudo DEMO_IOT_EMOJIS_DIR=~/emojis/618x618-color ~/flogo-demo-iot'
 ```
+To enable OpenTracing with a Zipkin HTTP collector listening on 192.168.1.1:9411, run instead
+```
+ssh rpi 'sudo DEMO_IOT_EMOJIS_DIR=~/emojis/618x618-color FLOGO_OPENTRACING_IMPLEMENTATION=zipkin FLOGO_OPENTRACING_TRANSPORT=http FLOGO_OPENTRACING_ENDPOINTS=http://192.168.1.1:9411/api/v1/spans ~/flogo-demo-iot'
+```
 
 5. test with a sample smiley
 ```
