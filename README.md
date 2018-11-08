@@ -11,7 +11,7 @@ This repository is part of the [**Flogo Demo by Square IT Services**](https://gi
 
 Currently, these two applications communicates very simply through a REST service.
 
-![Flogo Demo architecture](https://github.com/square-it/flogo-demo/blob/master/Flogo%20Demo.png)
+![Flogo Demo architecture](https://github.com/square-it/flogo-demo/blob/master/FlogoDemo.png)
 
 
 ## Description
