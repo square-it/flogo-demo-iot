@@ -2,9 +2,8 @@
 
 This repository is part of the [**Flogo Demo by Square IT Services**](https://github.com/square-it/flogo-demo).
 
-This Flogo application manages the screen display part of the Square IT Flogo demo.
-
-[Another Flogo application](https://github.com/square-it/flogo-demo-services) is used to manage the interactions with end-users.
+* [This Flogo application](#description) manages the screen display part.
+* [Another Flogo application](https://github.com/square-it/flogo-demo-services) is used to manage the interactions with end-users.
 
 Currently, these two applications communicates very simply through a REST service.
 
@@ -36,12 +35,14 @@ The smiley images used come from the [openmoji site](http://openmoji.org/).
 
 ## Prerequisites
 
-* a Raspberry Pi with a screen display
+* a Raspberry Pi with a screen display, sudoer right and SSH access (using Raspbian with default user ```pi``` is advised)
 * a system with Go & Flogo installed (for compilation only)
 
 ## Usage
 
-0. configure your SSH config (considering the Raspberry Pi is reachable at 192.168.1.2)
+### Preparation
+
+1. configure your SSH config (considering the Raspberry Pi is reachable at 192.168.1.2)
 ```
 mkdir -p ~/.ssh
 touch ~/.ssh/config
@@ -53,7 +54,17 @@ Host rpi
 EOF
 ```
 
-### From sources
+2. copy the smileys to the Raspberry Pi
+```
+ssh rpi 'curl -fsSL https://github.com/hfg-gmuend/openmoji/releases/download/1.0.0/618x618-color.zip > /tmp/618x618-color.zip && rm -rf ~/emojis && unzip -q /tmp/618x618-color.zip -d ~/emojis'
+```
+
+3. install ```fbi```
+```
+ssh rpi 'sudo apt-get update && sudo apt-get install -y fbi'
+```
+
+### Build from sources
 
 1. clone this repository
 ```
@@ -73,9 +84,7 @@ scp bin/linux_arm/flogo-demo-iot rpi:~
 
 4. run the executable on the Raspberry Pi
 ```
-ssh rpi
-cd ~
-sudo DEMO_IOT_EMOJIS_DIR=/home/pi/emojis/618x618-color ./flogo-demo-iot
+ssh rpi 'sudo DEMO_IOT_EMOJIS_DIR=~/emojis/618x618-color ~/flogo-demo-iot'
 ```
 
 5. test with a sample smiley
