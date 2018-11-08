@@ -82,7 +82,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d46f5d0c0f498406d3006f8e6225efb781b51462637de111606c94f000862a0b"
+  digest = "1:b75bbab32564391779270df47a11881956628fb8c380b620b9d1f3e24e6d0ce8"
   name = "github.com/apache/thrift"
   packages = ["lib/go/thrift"]
   pruneopts = "T"
