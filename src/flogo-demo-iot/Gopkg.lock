@@ -10,8 +10,7 @@
   version = "v1.19.0"
 
 [[projects]]
-  branch = "master"
-  digest = "1:aab1ac4aa5616877764bc82674ba08d6203c33c2f9a2807d1871a57dd2942aa2"
+  digest = "1:63af90669214d42279a26f7297fc0852126543a59b10f650713a9209d813183d"
   name = "github.com/TIBCOSoftware/flogo-contrib"
   packages = [
     "action/flow",
@@ -33,11 +32,11 @@
     "trigger/rest/cors",
   ]
   pruneopts = "T"
-  revision = "374a33772f0336745909312a0aa04f4832434e21"
+  revision = "2b1364a2a6af89175483b690bf6f7839e673257f"
+  version = "v0.5.7"
 
 [[projects]]
-  branch = "master"
-  digest = "1:e9e8b1057a488cb380a6b9f0ecff53aa71fa891247401dc1626a447b5a387580"
+  digest = "1:17d04943a0ccecce3d4547d8acb6c95dc84796ec3b60ad49da240169b67d8bd4"
   name = "github.com/TIBCOSoftware/flogo-lib"
   packages = [
     "app",
@@ -78,15 +77,16 @@
     "util/managed",
   ]
   pruneopts = "T"
-  revision = "0bfece189130e5612dc3efaf624b7c5dddc2f433"
+  revision = "7f1e2d29362432df0d563e2984b2de2ce450a1a1"
+  version = "v0.5.7"
 
 [[projects]]
   branch = "master"
-  digest = "1:b75bbab32564391779270df47a11881956628fb8c380b620b9d1f3e24e6d0ce8"
+  digest = "1:2fcd447fb480db9f98ecc924be3526ab210ff4e08e03bef70ae3586dd00d9e54"
   name = "github.com/apache/thrift"
   packages = ["lib/go/thrift"]
   pruneopts = "T"
-  revision = "f7d43ce0aa58cc7e33af425140e5a063e3f3a75f"
+  revision = "24918abba929282d6e405fedbc2ef68c3e894136"
 
 [[projects]]
   branch = "master"
@@ -106,11 +106,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:be0828e2b8cd52e1364ba178fa8c0c6abc030cb7354336ad38100dbcac03fc73"
+  digest = "1:1bad7191523354e022c413d2e43c3c4eddd13ec400f2edb8b9e67d2689693643"
   name = "github.com/debovema/flogo-opentracing-listener"
   packages = ["."]
   pruneopts = "T"
-  revision = "d9c36fa321f0f21b4e63d3682adbd0e3f5838b81"
+  revision = "b509f80ac1dfea1732fab1c497f7b65244bff135"
 
 [[projects]]
   digest = "1:bd6e6dc5db19ccd7c2356a86e180960f266ed12be1a58ffba88c3399ce205781"
@@ -255,14 +255,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:562836ce1c3ed59623adb32d65625495c7d26e7e3b58a0afcc3d891fa66b5802"
+  digest = "1:5bcd1c76c25ca9d8467dcd1426c474f29b539a9fc80a001a1742d396bf61ec35"
   name = "github.com/square-it/flogo-contrib-activities"
   packages = [
     "command",
     "copyfile",
   ]
   pruneopts = "T"
-  revision = "9325415925d3b346d5f370c21e71b582a4ace358"
+  revision = "4e9ac86c5fa92c9951d4163226fc938bc1677d9a"
 
 [[projects]]
   digest = "1:330d573e39e55db7e74464600a46fefddff5d7cfd7e53d395cf1c5754302218c"
@@ -326,11 +326,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:482ae811efe307bd9d00f66de80385fba51325054f8ff573e894185e72441f08"
+  digest = "1:0550efca924537365fba757950ae7b6ec8c11f018b5c2d6a189ac9a2af0f1ba7"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
   pruneopts = "T"
-  revision = "4d3f4d9ffa16a13f451c3b2999e9c49e9750bf06"
+  revision = "3d3f9f413869b949e48070b5bc593aa22cc2b8f2"
 
 [[projects]]
   branch = "master"
@@ -342,14 +342,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4d04f771b6ad26fb216d1553a474ffb63d837cfb438f6c72eb7b6a50a7f2a4d0"
+  digest = "1:a810055cfbdd9025f18eac69cc78b9284f549cd2c2a3990765de09dc828b713f"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "T"
-  revision = "3a76605856fddce5718553cbb8bd50ca492a7274"
+  revision = "66b7b1311ac80bbafcd2daeef9a5e6e2cd1e2399"
 
 [solve-meta]
   analyzer-name = "dep"

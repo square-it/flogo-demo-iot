@@ -6,14 +6,3 @@
 [prune]
   go-tests = true
 
-[[constraint]]
-  name = "github.com/TIBCOSoftware/flogo-contrib"
-  branch = "master"
-
-[[constraint]]
-  name = "github.com/TIBCOSoftware/flogo-lib"
-  branch = "master"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/debovema/flogo-opentracing-listener"
