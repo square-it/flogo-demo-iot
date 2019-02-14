@@ -45,7 +45,7 @@ The smiley images used come from the [openmoji site](http://openmoji.org/).
 
 ## Usage
 
-### Preparation
+### Prepare
 
 1. configure your SSH config (considering the Raspberry Pi is reachable at 192.168.1.2)
 ```
@@ -69,6 +69,12 @@ ssh rpi 'curl -fsSL https://github.com/hfg-gmuend/openmoji/releases/download/1.0
 ssh rpi 'sudo apt-get update && sudo apt-get install -y fbi'
 ```
 
+4. to enable OpenTracing, run a Zipkin collector (optional):
+```
+docker run --name zipkin -d -p 9411:9411 openzipkin/zipkin
+```
+> For detailed instructions read [OpenTracing collectors for Flogo](https://github.com/square-it/flogo-opentracing-listener#collectors).
+
 ### Build from sources
 
 1. clone this repository
@@ -82,21 +88,48 @@ cd flogo-demo-iot
 GOOS=linux GOARCH=arm GOARM=7 flogo build -e
 ```
 
-3. copy the executable to the Raspberry Pi
+> Go language supports cross-compilation out-of-the-box.
+
+### Test
+
+1. copy the executable to the Raspberry Pi
 ```
 scp bin/linux_arm/flogo-demo-iot rpi:~
 ```
 
-4. run the executable on the Raspberry Pi
+2. run the executable on the Raspberry Pi
 ```
 ssh rpi 'sudo DEMO_IOT_EMOJIS_DIR=~/emojis/618x618-color ~/flogo-demo-iot'
 ```
+
 To enable OpenTracing with a Zipkin HTTP collector listening on 192.168.1.1:9411, run instead
 ```
 ssh rpi 'sudo DEMO_IOT_EMOJIS_DIR=~/emojis/618x618-color FLOGO_OPENTRACING_IMPLEMENTATION=zipkin FLOGO_OPENTRACING_TRANSPORT=http FLOGO_OPENTRACING_ENDPOINTS=http://192.168.1.1:9411/api/v1/spans ~/flogo-demo-iot'
 ```
 
-5. test with a sample smiley
+3. test with a sample smiley
 ```
 curl http://192.168.1.2:4445/v1/smiley/1F605
 ```
+
+## Development
+
+1. run a Flogo Web UI
+```
+docker run --name flogo -it -d -p 3303:3303 -e FLOGO_NO_ENGINE_RECREATION=false flogo/flogo-docker:v0.5.8 eula-accept
+```
+
+2. install custom-made activities contributions
+```
+docker exec -it flogo sh -c 'cd /tmp/flogo-web/build/server/local/engines/flogo-web && flogo install github.com/square-it/flogo-contrib-activities/command'
+docker exec -it flogo sh -c 'cd /tmp/flogo-web/build/server/local/engines/flogo-web && flogo install github.com/square-it/flogo-contrib-activities/copyfile'
+```
+
+3. restart the Flogo Web UI container
+```
+docker restart flogo
+```
+
+The Flogo Web UI is available at ```http://localhost:3303```.
+
+Import the application using the [provided *flogo.json*](./flogo.json).
