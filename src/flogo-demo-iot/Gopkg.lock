@@ -105,14 +105,6 @@
   version = "v1.1.1"
 
 [[projects]]
-  branch = "master"
-  digest = "1:1bad7191523354e022c413d2e43c3c4eddd13ec400f2edb8b9e67d2689693643"
-  name = "github.com/debovema/flogo-opentracing-listener"
-  packages = ["."]
-  pruneopts = "T"
-  revision = "b509f80ac1dfea1732fab1c497f7b65244bff135"
-
-[[projects]]
   digest = "1:bd6e6dc5db19ccd7c2356a86e180960f266ed12be1a58ffba88c3399ce205781"
   name = "github.com/eapache/go-resiliency"
   packages = ["breaker"]
@@ -265,6 +257,14 @@
   revision = "4e9ac86c5fa92c9951d4163226fc938bc1677d9a"
 
 [[projects]]
+  digest = "1:0d7ae9b648ee8a634114585e6a4d0a2b86ec176c9979b38fbb34a32f082666a7"
+  name = "github.com/square-it/flogo-opentracing-listener"
+  packages = ["."]
+  pruneopts = "T"
+  revision = "1dc61f0f3ce87d66c2bef5b4d69c28fdea7b3463"
+  version = "v0.0.1"
+
+[[projects]]
   digest = "1:330d573e39e55db7e74464600a46fefddff5d7cfd7e53d395cf1c5754302218c"
   name = "github.com/uber/jaeger-client-go"
   packages = [
@@ -362,9 +362,9 @@
     "github.com/TIBCOSoftware/flogo-lib/app",
     "github.com/TIBCOSoftware/flogo-lib/engine",
     "github.com/TIBCOSoftware/flogo-lib/logger",
-    "github.com/debovema/flogo-opentracing-listener",
     "github.com/square-it/flogo-contrib-activities/command",
     "github.com/square-it/flogo-contrib-activities/copyfile",
+    "github.com/square-it/flogo-opentracing-listener",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
